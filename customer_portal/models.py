@@ -1,3 +1,4 @@
+from unicodedata import name
 from django.db import models
 from django import forms
 # packages in helping creating user form and login form
@@ -24,3 +25,4 @@ class RegisterForm(UserCreationForm):
         if commit:
             user.save()
         return user
+
