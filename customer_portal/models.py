@@ -27,3 +27,9 @@ class RegisterForm(UserCreationForm):
             user.save()
         return user
 
+# Model for the Product
+
+
+
+
+# Model of the Order
