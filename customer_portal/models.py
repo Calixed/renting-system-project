@@ -10,11 +10,11 @@ class RegisterForm(UserCreationForm):
     first_name = forms.CharField(label = "First name")
     last_name = forms.CharField(label = "Last Name")
     email = forms.EmailField(label = "Email")
-
+    address = forms.CharField(label = "Address")
     # properties of this class
     class Meta:
         model = User
-        fields = ("first_name","last_name" ,"email" )
+        fields = ("first_name","last_name" ,"email" ,"address")
 
     # overriding the saving method, setting hte username as email
     def save(self, commit= True):
@@ -22,6 +22,7 @@ class RegisterForm(UserCreationForm):
         user.set_password(self.cleaned_data["password1"])
         user.email = self.cleaned_data["email"]
         user.username = self.cleaned_data["email"]
+        user.address = self.cleaned_data["address"]
         if commit:
             user.save()
         return user
