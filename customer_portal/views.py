@@ -50,7 +50,7 @@ class RegisterPage(FormView):
 
     def form_valid(self, form): # once the post request is submitted, form validation appplies 
         user = form.save() # saves the form when the form is submitted
-        if user is not None: # checking if the form is valid
+        if user is not None: 
             login(self.request, user)
         return super(RegisterPage, self).form_valid(form)
 
