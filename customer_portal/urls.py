@@ -1,10 +1,21 @@
-from django.urls import path
-from .views import DeleteView, CustomLoginView, RegisterPage,HomePage
 from django.contrib.auth.views import LogoutView
+from django.urls import path
+
 from .forms import RegisterForm
+from .views import CustomLoginView, HomePage, ProductPage, RegisterPage
+
 urlpatterns = [
     path('login/', CustomLoginView.as_view(), name="login"),
+
     path('logout/', LogoutView.as_view(next_page='login'), name="logout"),
+
     path('register/', RegisterPage.as_view(), name="register"),
-    path('', HomePage.as_view(), name="home")
+
+    # home page url
+    path('', HomePage.as_view(), name="home"),
+
+    # product view url
+    path("product/<int:pk>", ProductPage.as_view(), name="product")
+
 ]
+

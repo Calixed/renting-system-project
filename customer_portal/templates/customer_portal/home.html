@@ -5,19 +5,44 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
+    <style>
+        img {
+            padding: 0;
+            display: block;
+            margin: 0 auto auto 0;
+        
+            height: 500px;
+            width: 500px;
+            max-height: 500px;
+            max-width: 500px;
+           }
+    </style>
 </head>
 <body>
     {% if request.user.is_authenticated %} <!-- Checking for user authentication -->
     <p>{{request.user.first_name}}</p>
     <a href="{% url 'logout' %}">Logout</a>
     {% else %}
-        <a href="{% url 'login' %}">Login</a>
+    <p>Welcome Guest, <a href="{% url 'login' %}">Login</a></p>
     {% endif %}
     <hr>
     <h1>Home page</h1>
-    <hr>
 
     
+    {% for product in products  %}
+    <hr>
+        <h3>{{product.product_name}}</h3>
+        <img src="{{product.imageURL}}" alt="" class>
+        <h3>Price: php {{product.product_price}} per day</h3>
+
+        {% if product.product_availability %}
+            <p><small class="text-success">Available in Stock</small></p>
+        {% else %}
+            <p><small class="text-muted">Not Available</small></p>
+        {% endif %}
+        <a href="{% url 'product' product.id %}">View in Detail</a>
+    <hr>
+    {% endfor %}
 
 </body>
 </html>

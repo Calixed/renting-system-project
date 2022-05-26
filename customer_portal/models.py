@@ -17,11 +17,19 @@ class Product(models.Model):
     product_availability = models.BooleanField(default=False)
 
     class Meta:
-        verbose_name_plural = 'Products for Rent'
+        verbose_name_plural = 'Products'
 
     #shows what is first thing you will see in the database
     def __str__(self):
         return self.product_name
+
+    @property #lets rendering out data by the method instead of by attrib
+    def imageURL(self):
+          try:
+               img = self.featured_image.url
+          except:
+               img = ''
+          return img
 
 # Model of the Order
 class Orders(models.Model):

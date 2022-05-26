@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        img {
+            padding: 0;
+            display: block;
+            margin: 0 auto auto 0;
+        
+            height: 500px;
+            width: 500px;
+            max-height: 500px;
+            max-width: 500px;
+           }
+    </style>
+</head>
+<body>
+    <img src="{{product.imageURL}}" alt="" class>
+    <h1>{{product.product_name}}</h1>
+    <h2>{{product.product_price}}</h2>
+    <h3>Category: {{product.product_category}}</h3>
+    <hr>
+    <p>Color way: {{product.color}}</p>
+    <p>Description: {{product.description}}</p>
+
+    {% if product.product_availability %}
+        <p><small class="text-success">Available in Stock</small></p>
+        <p><a href="">Proceed Transaction</a></p>
+    {% else %}
+        <p><small class="text-muted">Not Available</small></p>
+    {% endif %}
+
+    <p><a href="{% url 'home' %}">Go Back</a></p>
+</body>
+</html>
