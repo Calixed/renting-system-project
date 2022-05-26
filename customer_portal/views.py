@@ -1,21 +1,21 @@
 from msilib.schema import ListView
-from django.http import HttpResponse
-from django.shortcuts import render
+
 from django import forms
-from django.urls import reverse_lazy 
-from django.shortcuts import render, redirect
-from django.contrib.auth.views import LoginView   
+from django.contrib.auth import login
 from django.contrib.auth.forms import AuthenticationForm, UsernameField
+from django.contrib.auth.models import User
+from django.shortcuts import redirect, render
+from django.urls import reverse_lazy
 from django.views import View
+from django.views.generic.detail import DetailView
+from django.contrib.auth.views import LoginView 
+from django.views.generic.edit import (CreateView, DeleteView, FormView,
+                                       UpdateView)
 from django.views.generic.list import ListView
-# for rendering the data
-from django.views.generic.edit import CreateView, UpdateView, DeleteView, FormView
-from django.views.generic import TemplateView
-from django.contrib.auth import login                  # makethe user login after creating an account
-from django.contrib.auth.views import LoginView        # for the login feature
-from django.contrib.auth.models import User     
-# from models
-from customer_portal.models import RegisterForm
+
+from .forms import RegisterForm
+from .models import Product
+
 
 class CustomLoginForm(AuthenticationForm):
     username = UsernameField(
@@ -61,8 +61,17 @@ class RegisterPage(FormView):
         return super(RegisterPage, self).get(*args, **kwargs)
 
 # Home page
-class HomePage(TemplateView):
+class HomePage(ListView):
+    model = Product
+    context_object_name = 'products' #overriding 
+
+    # name of the template on where to render
     template_name = "customer_portal/home.html"
 
+# Single View Product
+class ProductPage(DetailView):
+    model = Product
+    context_object_name = 'product'
+    template_name = "customer_portal/product.html"
 
-
+    
