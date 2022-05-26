@@ -14,8 +14,8 @@ from django.views.generic import TemplateView
 from django.contrib.auth import login                  # makethe user login after creating an account
 from django.contrib.auth.views import LoginView        # for the login feature
 from django.contrib.auth.models import User     
-# from models
-from customer_portal.models import RegisterForm
+
+from .forms import RegisterForm
 
 class CustomLoginForm(AuthenticationForm):
     username = UsernameField(
