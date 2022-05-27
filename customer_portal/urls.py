@@ -18,6 +18,6 @@ urlpatterns = [
     path("product/<int:pk>", ProductPage.as_view(), name="product"),
 
     # checkout order
-    path("checkout/<int:pk>", CheckoutPage.as_view(), name="checkout")
+    path("checkout/<int:product_id>", CheckoutPage.as_view(), name="checkout")
 ]
 

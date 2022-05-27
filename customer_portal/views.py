@@ -83,8 +83,10 @@ class CheckoutPage(CreateView):
     success_url = reverse_lazy('home') # redirect user to the home page
 
     def form_valid(self,form):
-        form.instance.user = self.request.user
-        form.instance.product_rented = self.kwargs.get('pk')
+        self.product_id = self.kwargs['product_id'] # grab the productid passed from urls
+        product = Product.objects.get(id=self.product_id) # query the product
+        form.instance.user = self.request.user # assigned the user, with the current logged in user
+        form.instance.product_rented = product # assigned the queried product, to the product_rented
         return super(CheckoutPage, self).form_valid(form)
 
         

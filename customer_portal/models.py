@@ -41,8 +41,6 @@ class Orders(models.Model):
     class Meta:
         verbose_name_plural = 'Pending Orders'
     
-    def __str__(self):
-        return f"{self.user.first_name} rented {self.product_rented}"
  
 class ProductCategory(models.Model):
     title = models.CharField(max_length=200)
