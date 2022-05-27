@@ -41,6 +41,10 @@ class Orders(models.Model):
    
     class Meta:
         verbose_name_plural = 'Pending Orders'
+
+    # displays the title of the row
+    def __str__(self): 
+        return f"Order: {self.id}"
     
  
 class ProductCategory(models.Model):

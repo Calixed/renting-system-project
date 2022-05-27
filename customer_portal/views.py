@@ -90,5 +90,5 @@ class CheckoutPage(CreateView):
        
         form.instance.user = self.request.user # assigned the user, with the current logged in user
         form.instance.product_rented = product # assigned the queried product, to the product_rented
-        form.instance.rent = product_rent
+        form.instance.rent = product_rent # assigned computed rent
         return super(CheckoutPage, self).form_valid(form)
