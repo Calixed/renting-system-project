@@ -5,10 +5,13 @@ from .forms import RegisterForm
 from .views import CustomLoginView, HomePage, ProductPage, RegisterPage, CheckoutPage
 
 urlpatterns = [
+    # login page
     path('login/', CustomLoginView.as_view(), name="login"),
 
-    path('logout/', LogoutView.as_view(next_page='login'), name="logout"),
+    # logout, redirecting the user to the home page
+    path('logout/', LogoutView.as_view(next_page='home'), name="logout"),
 
+    # register page
     path('register/', RegisterPage.as_view(), name="register"),
 
     # home page url
