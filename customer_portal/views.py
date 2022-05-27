@@ -85,9 +85,10 @@ class CheckoutPage(CreateView):
     def form_valid(self,form):
         self.product_id = self.kwargs['product_id'] # grab the productid passed from urls
         product = Product.objects.get(id=self.product_id) # query the product
+       
+        product_rent = float(form.instance.days) * float(product.product_price) # convert the decimal.Decimal into float
+       
         form.instance.user = self.request.user # assigned the user, with the current logged in user
         form.instance.product_rented = product # assigned the queried product, to the product_rented
+        form.instance.rent = product_rent
         return super(CheckoutPage, self).form_valid(form)
-
-        
-

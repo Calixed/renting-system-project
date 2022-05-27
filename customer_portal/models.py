@@ -34,7 +34,7 @@ class Product(models.Model):
 class Orders(models.Model):
     user = models.ForeignKey(User, on_delete=models.PROTECT)
     product_rented = models.ForeignKey("customer_portal.Product",  on_delete = models.SET_NULL, blank = True, null= True)
-    days = models.CharField(max_length = 3)
+    days = models.CharField(max_length=3)
     rent = models.CharField(max_length=8)
     is_complete = models.BooleanField(default = False)
    
