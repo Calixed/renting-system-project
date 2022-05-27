@@ -2,7 +2,7 @@ from django.contrib.auth.views import LogoutView
 from django.urls import path
 
 from .forms import RegisterForm
-from .views import CustomLoginView, HomePage, ProductPage, RegisterPage
+from .views import CustomLoginView, HomePage, ProductPage, RegisterPage, CheckoutPage
 
 urlpatterns = [
     path('login/', CustomLoginView.as_view(), name="login"),
@@ -15,7 +15,9 @@ urlpatterns = [
     path('', HomePage.as_view(), name="home"),
 
     # product view url
-    path("product/<int:pk>", ProductPage.as_view(), name="product")
+    path("product/<int:pk>", ProductPage.as_view(), name="product"),
 
+    # checkout order
+    path("checkout/<int:pk>", CheckoutPage.as_view(), name="checkout")
 ]
 

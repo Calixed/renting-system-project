@@ -33,12 +33,11 @@ class Product(models.Model):
 # Model of the Order
 class Orders(models.Model):
     user = models.ForeignKey(User, on_delete=models.PROTECT)
-    email = models.CharField(max_length=200, null=False, blank=False)
+    product_rented = models.ForeignKey("customer_portal.Product",  on_delete = models.SET_NULL, blank = True, null= True)
     days = models.CharField(max_length = 3)
     rent = models.CharField(max_length=8)
     is_complete = models.BooleanField(default = False)
-    product_rented = models.ForeignKey("customer_portal.Product",  on_delete = models.SET_NULL, blank = True, null= True)
-    
+   
     class Meta:
         verbose_name_plural = 'Pending Orders'
     

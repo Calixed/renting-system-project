@@ -27,13 +27,17 @@
     <p>Color way: {{product.color}}</p>
     <p>Description: {{product.description}}</p>
 
-    {% if product.product_availability %}
+    {% if request.user.is_authenticated %}
+        {% if product.product_availability %}
         <p><small class="text-success">Available in Stock</small></p>
-        <p><a href="">Proceed Transaction</a></p>
-    {% else %}
+        <p><a href="{% url 'checkout' product.id  %}">Proceed Transaction</a></p>
+        {% else %}
         <p><small class="text-muted">Not Available</small></p>
+        {% endif %}
+    {% else %}
+        <p>In Order to Rent this product, you must logged in first!</p>
     {% endif %}
-
+    <hr>
     <p><a href="{% url 'home' %}">Go Back</a></p>
 </body>
 </html>

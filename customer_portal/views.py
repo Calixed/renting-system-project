@@ -13,8 +13,8 @@ from django.views.generic.edit import (CreateView, DeleteView, FormView,
                                        UpdateView)
 from django.views.generic.list import ListView
 
-from .forms import RegisterForm, OrderForm
-from .models import Product
+from .forms import RegisterForm, OrderForm 
+from .models import Product, Orders
 
 
 class CustomLoginForm(AuthenticationForm):
@@ -74,6 +74,18 @@ class ProductPage(DetailView):
     context_object_name = 'product'
     template_name = "customer_portal/product.html"
 
-class ProceedOrder(FormView):
-    form_class = OrderForm
+# Ordering the Product
+# basically, had my template checkout it with the product.id 
+class CheckoutPage(CreateView):
+    model = Orders
     template_name = 'customer_portal/checkout.html'
+    form_class = OrderForm
+    success_url = reverse_lazy('home') # redirect user to the home page
+
+    def form_valid(self,form):
+        form.instance.user = self.request.user
+        form.instance.product_rented = self.kwargs.get('pk')
+        return super(CheckoutPage, self).form_valid(form)
+
+        
+
