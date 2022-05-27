@@ -13,7 +13,7 @@ from django.views.generic.edit import (CreateView, DeleteView, FormView,
                                        UpdateView)
 from django.views.generic.list import ListView
 
-from .forms import RegisterForm
+from .forms import RegisterForm, OrderForm
 from .models import Product
 
 
@@ -74,4 +74,6 @@ class ProductPage(DetailView):
     context_object_name = 'product'
     template_name = "customer_portal/product.html"
 
-    
+class ProceedOrder(FormView):
+    form_class = OrderForm
+    template_name = 'customer_portal/checkout.html'

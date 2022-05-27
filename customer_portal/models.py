@@ -1,7 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
 import uuid
-# Model for our customer
 
 # Model for the Product
 class Product(models.Model):
@@ -34,6 +33,7 @@ class Product(models.Model):
 # Model of the Order
 class Orders(models.Model):
     user = models.ForeignKey(User, on_delete=models.PROTECT)
+    email = models.CharField(max_length=200, null=False, blank=False)
     days = models.CharField(max_length = 3)
     rent = models.CharField(max_length=8)
     is_complete = models.BooleanField(default = False)

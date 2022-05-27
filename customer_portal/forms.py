@@ -8,6 +8,7 @@ from django.contrib.auth.forms import UserCreationForm
 class RegisterForm(UserCreationForm):
     first_name = forms.CharField(label = "First name")
     last_name = forms.CharField(label = "Last Name")
+    phone_number = forms.CharField(max_length=15)
     email = forms.EmailField(label = "Email")
     address = forms.CharField(label = "Address")
     # properties of this class
@@ -26,3 +27,7 @@ class RegisterForm(UserCreationForm):
             user.save()
         return user
 
+class OrderForm(forms.Form):
+    
+    def form_valid(self,form):
+        form.instance.user = self.request.user
