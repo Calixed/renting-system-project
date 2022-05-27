@@ -1,3 +1,5 @@
+{% extends 'customer_portal/main.html' %}
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,13 +9,24 @@
     <title>Login</title>
 </head>
 <body>
-    <h1>Login Page</h1>
-    <form method="POST">
-        {% csrf_token %}
-        {{form.as_p}}
-        <input type="submit" value= "Login" >
 
-    </form>
-    <p>Don't have an account? <a href="{% url 'register' %}">Register</a></p>
+    {% block content %}
+    <div class="container">
+        <div class="header">
+            <h1>Login Page</h1>
+        </div>
+        <div class="form-data">
+            <form method="POST">
+                {% csrf_token %}
+                {{form.as_p}}
+                <input type="submit" value= "Login" >
+            </form>
+        </div>
+        <div class="sub-info">
+            <p>Don't have an account? <a href="{% url 'register' %}">Register</a></p>
+            <p>Checkout Product Available <a href="{% url 'home' %}">Browse</a></p>
+        </div>
+    </div>
+    {% endblock content %}
 </body>
 </html>
