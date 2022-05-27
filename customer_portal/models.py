@@ -1,7 +1,7 @@
+from dataclasses import fields
 from django.db import models
 from django.contrib.auth.models import User
 import uuid
-# Model for our customer
 
 # Model for the Product
 class Product(models.Model):
@@ -34,16 +34,14 @@ class Product(models.Model):
 # Model of the Order
 class Orders(models.Model):
     user = models.ForeignKey(User, on_delete=models.PROTECT)
-    days = models.CharField(max_length = 3)
+    product_rented = models.ForeignKey("customer_portal.Product",  on_delete = models.SET_NULL, blank = True, null= True)
+    days = models.CharField(max_length=3)
     rent = models.CharField(max_length=8)
     is_complete = models.BooleanField(default = False)
-    product_rented = models.ForeignKey("customer_portal.Product",  on_delete = models.SET_NULL, blank = True, null= True)
-    
+   
     class Meta:
         verbose_name_plural = 'Pending Orders'
     
-    def __str__(self):
-        return f"{self.user.first_name} rented {self.product_rented}"
  
 class ProductCategory(models.Model):
     title = models.CharField(max_length=200)
