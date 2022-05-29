@@ -29,8 +29,7 @@ class CustomLoginForm(AuthenticationForm):
     'invalid_login': (
         "Please enter the correct email and password"
         " Note that both fields may be case-sensitive."
-    ),
-}
+    ),}
 
 # displaying the custom login page
 class CustomLoginView(LoginView):
@@ -63,10 +62,8 @@ class RegisterPage(FormView):
 # Home page
 class HomePage(ListView):
     model = Product
-    context_object_name = 'products' #overriding 
-
-    # name of the template on where to render
-    template_name = "customer_portal/home.html"
+    context_object_name = 'products' # overriding
+    template_name = "customer_portal/home.html" # name of the template on where to render
 
 # Single View Product
 class ProductPage(DetailView):
@@ -97,3 +94,4 @@ class CheckoutPage(CreateView):
         product = Product.objects.get(id=self.product_id)
         context['product'] = product
         return context
+

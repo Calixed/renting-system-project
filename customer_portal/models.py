@@ -9,9 +9,7 @@ class Product(models.Model):
     product_price = models.DecimalField(max_digits=6, decimal_places=2)
     color = models.CharField(max_length = 10)
     description = models.CharField(max_length = 100)
-    product_category = models.ForeignKey('customer_portal.ProductCategory', on_delete=models.CASCADE, null=False, blank=False)
-
-    #upload_to will go to base_dir/static/media/product_images then it will 
+    product_category = models.ForeignKey('customer_portal.ProductCategory', on_delete=models.CASCADE, null=False, blank=False)   #upload_to will go to base_dir/static/media/product_images then it will 
     featured_image = models.ImageField(upload_to='product_images',null=False, blank=False)
     date_added = models.DateTimeField(auto_now_add=True)
     product_availability = models.BooleanField(default=False)
