@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <section class="home" id="home">
+        <img src="{% static './assets/img/pexels-wendy-wei-1662570.jpg' %}" alt="" class="home__img">
+
+        <div class="home__container container grid">
+            <div class="home__data">
+                <span class="home__data-subtitle">Choose Your Own Car Now</span>
+                <h1 class="home__data-title">Rent the <br>  <b>Best Car </b>for you</h1>
+                <a href="#place" class="button">CHOOSE NOW</a>
+
+            </div>
+
+            <div class="home__social">
+                <a href="https://www.facebook.com/" target="_blank" class="home__social-link">
+                    <i class="ri-facebook-box-fill"></i>
+                </a>
+                <a href="https://www.instagram.com/" target="_blank" class="home__social-link">
+                    <i class="ri-instagram-fill"></i>
+                </a>
+                <a href="https://twitter.com/" target="_blank" class="home__social-link">
+                    <i class="ri-twitter-fill"></i>
+                </a>
+            </div>
+
+
+        </div>
+    </section>
+
+    <section class="place section" id="place">
+        <h2 class="section__title">Choose Your Car</h2>
+
+        <div class="place__container container grid">
+            <!--==================== PLACES CARD 1 ====================-->
+            {% for product in products %}
+                <div class="place__card">
+                    <img src="{{ product.imageURL }}" alt="" class="place__img">
+
+
+                    <div class="place__content">
+                        {% if product.product_availability %}
+                            <p class="badge text-bg-primary">Available to Drive</p>
+                        {% else %}
+                            <p class="badge text-bg-danger">Not Available</p>
+                        {% endif %}
+
+                        <div class="place__data">
+                            <h3 class="place__title">{{ product.product_name }}</h3>
+                            <span class="place__subtitle">{{ product.description }}</span>
+                            <span class="place__price">{{ product.product_price }}</span>
+                        </div>
+                    </div>
+
+                    <button class="button button--flex place__button">
+                        <i class="ri-arrow-right-line nav__item"></i>
+                        <a class="nav__link" href="{% url 'product' product.id %}">Drive</a>
+                    </button>
+                </div>
+            {% endfor %}
+
+
+        </div>
+    </section>
+
+
+{% endblock %}
+
+{#{% for product in products %}#}
+{#    <div class="card" style="width: 18rem;">#}
+{#        <img src="{{ product.imageURL }}" class="card-img-top" alt="...">#}
+{#        <div class="card-body">#}
+{#            <h5 class="card-title fw-bold">Car Model: {{ product.product_name }}</h5>#}
+{#            <p class="card-text fw-semibold">Price: {{ product.product_price }}</p>#}
+{% if product.product_availability %}
+    <p class="badge text-bg-primary">Available to Drive</p>
+{% else %}
+    <p class="badge text-bg-danger">Not Available</p>
+{% endif %}
+{#            <div class="row">#}
+{#                <a href="{% url 'product' product.id %}" class="btn btn-primary">Drive Now</a>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+{#{% endfor %}#}

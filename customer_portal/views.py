@@ -7,13 +7,14 @@ from django.contrib.auth.models import User
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.views import View
+from django.views.generic import TemplateView
 from django.views.generic.detail import DetailView
-from django.contrib.auth.views import LoginView 
+from django.contrib.auth.views import LoginView
 from django.views.generic.edit import (CreateView, DeleteView, FormView,
                                        UpdateView)
 from django.views.generic.list import ListView
 
-from .forms import RegisterForm, OrderForm 
+from .forms import RegisterForm, OrderForm
 from .models import Product, Orders
 
 
@@ -25,32 +26,33 @@ class CustomLoginForm(AuthenticationForm):
 
     # hints when the user is entered invalid email and password
     error_messages = {
-    **AuthenticationForm.error_messages,
-    'invalid_login': (
-        "Please enter the correct email and password"
-        " Note that both fields may be case-sensitive."
-    ),
-}
+        **AuthenticationForm.error_messages,
+        'invalid_login': (
+            "Please enter the correct email and password"
+            " Note that both fields may be case-sensitive."
+        ),
+    }
+
 
 # displaying the custom login page
 class CustomLoginView(LoginView):
-    template_name = 'customer_portal/login.html' # location of the template
+    template_name = 'customer_portal/login.html'  # location of the template
     authentication_form = CustomLoginForm
-    redirect_authenticated_user = True 
-    
+    redirect_authenticated_user = True
+
     def get_success_url(self):
-        return reverse_lazy('home') # return the user to the task page
+        return reverse_lazy('home')  # return the user to the task page
 
 
 class RegisterPage(FormView):
-    template_name = 'customer_portal/register.html' # location of the template
-    form_class = RegisterForm # for building the custom user-registeration form
+    template_name = 'customer_portal/register.html'  # location of the template
+    form_class = RegisterForm  # for building the custom user-registeration form
     redirect_authenticated_user = True
     success_url = reverse_lazy('home')
 
-    def form_valid(self, form): # once the post request is submitted, form validation appplies 
-        user = form.save() # saves the form when the form is submitted
-        if user is not None: 
+    def form_valid(self, form):  # once the post request is submitted, form validation appplies
+        user = form.save()  # saves the form when the form is submitted
+        if user is not None:
             login(self.request, user)
         return super(RegisterPage, self).form_valid(form)
 
@@ -60,13 +62,25 @@ class RegisterPage(FormView):
             return redirect('home')
         return super(RegisterPage, self).get(*args, **kwargs)
 
+
+class HomePageView(TemplateView):
+    template_name = "customer_portal/home.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        products = Product.objects.all()
+        context['products'] = products
+        return context
+
+
 # Home page
-class HomePage(ListView):
+class ProductListView(ListView):
     model = Product
-    context_object_name = 'products' #overriding 
+    context_object_name = 'products'  # overriding
 
     # name of the template on where to render
-    template_name = "customer_portal/home.html"
+    template_name = "customer_portal/product_list.html"
+
 
 # Single View Product
 class ProductPage(DetailView):
@@ -74,26 +88,28 @@ class ProductPage(DetailView):
     context_object_name = 'product'
     template_name = "customer_portal/product.html"
 
+
 # Ordering the Product
 # basically, had my template checkout it with the product.id 
 class CheckoutPage(CreateView):
     model = Orders
     template_name = 'customer_portal/checkout.html'
     form_class = OrderForm
-    success_url = reverse_lazy('home') # redirect user to the home page
-    
-    def form_valid(self,form):
-        self.product_id = self.kwargs['pk'] # grab the productid passed from urls
-        product = Product.objects.get(id=self.product_id) # query the product
-        product_rent = float(form.instance.days) * float(product.product_price) # convert the decimal.Decimal into float
-        form.instance.user = self.request.user # assigned the user, with the current logged in user
-        form.instance.product_rented = product # assigned the queried product, to the product_rented
-        form.instance.rent = product_rent # assigned computed rent
+    success_url = reverse_lazy('home')  # redirect user to the home page
+
+    def form_valid(self, form):
+        self.product_id = self.kwargs['pk']  # grab the productid passed from urls
+        product = Product.objects.get(id=self.product_id)  # query the product
+        product_rent = float(form.instance.days) * float(
+            product.product_price)  # convert the decimal.Decimal into float
+        form.instance.user = self.request.user  # assigned the user, with the current logged in user
+        form.instance.product_rented = product  # assigned the queried product, to the product_rented
+        form.instance.rent = product_rent  # assigned computed rent
         return super(CheckoutPage, self).form_valid(form)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        self.product_id = self.kwargs['pk'] # grab the productid passed from urls
+        self.product_id = self.kwargs['pk']  # grab the productid passed from urls
         product = Product.objects.get(id=self.product_id)
         context['product'] = product
         return context

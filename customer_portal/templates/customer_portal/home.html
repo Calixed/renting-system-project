@@ -1,48 +1,142 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
-    <style>
-        img {
-            padding: 0;
-            display: block;
-            margin: 0 auto auto 0;
-        
-            height: 500px;
-            width: 500px;
-            max-height: 500px;
-            max-width: 500px;
-           }
-    </style>
-</head>
-<body>
-    {% if request.user.is_authenticated %} <!-- Checking for user authentication -->
-    <p>{{request.user.first_name}}</p>
-    <a href="{% url 'logout' %}">Logout</a>
-    {% else %}
-    <p>Welcome Guest, <a href="{% url 'login' %}">Login</a></p>
-    {% endif %}
-    <hr>
-    <h1>Home page</h1>
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
 
-    
-    {% for product in products  %}
-    <hr>
-        <h3>{{product.product_name}}</h3>
-        <img src="{{product.imageURL}}" alt="" class>
-        <h3>Price: php {{product.product_price}} per day</h3>
+    <section class="home" id="home">
+        <img src="{% static './assets/img/pexels-revac-films&photography-109361.jpg' %}" alt="" class="home__img">
 
-        {% if product.product_availability %}
-            <p><small class="text-success">Available in Stock</small></p>
-        {% else %}
-            <p><small class="text-muted">Not Available</small></p>
-        {% endif %}
-        <a href="{% url 'product' product.id %}">View in Detail</a>
-    <hr>
-    {% endfor %}
+        <div class="home__container container grid">
+            <div class="home__data">
+                <span class="home__data-subtitle">Rent Your own Car</span>
+                <h1 class="home__data-title">Explore The <br> Best <b>Car <br></b></h1>
+                <a href="{% url 'shop' %}" class="button">RENT NOW</a>
 
-</body>
-</html>
+            </div>
+
+            <div class="home__social">
+                <a href="https://www.facebook.com/" target="_blank" class="home__social-link">
+                    <i class="ri-facebook-box-fill"></i>
+                </a>
+                <a href="https://www.instagram.com/" target="_blank" class="home__social-link">
+                    <i class="ri-instagram-fill"></i>
+                </a>
+                <a href="https://twitter.com/" target="_blank" class="home__social-link">
+                    <i class="ri-twitter-fill"></i>
+                </a>
+            </div>
+
+            <div class="home__info">
+                <div>
+                    <span class="home__info-title">See Best Available Cars</span>
+                    <a href="{% url 'shop' %}" class="button button--flex button--link home__info-button">
+                        More <i class="ri-arrow-right-line"></i>
+                    </a>
+                </div>
+
+                <div class="home__info-overlay">
+                    <img src="{% static './assets/img/pexels-wendy-wei-1662570.jpg' %}" alt="" class="home__info-img">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!--==================== ABOUT ====================-->
+    <section class="about section" id="about">
+        <div class="about__container container grid">
+            <div class="about__data">
+                <h2 class="section__title about__title">Chano <br>Surplus Renting System</h2>
+                <p class="about__description">You can find the most beautiful and pleasant places at the best
+                    prices with special discounts, you choose the place we will guide you all the way to wait, get your
+                    place now.
+                </p>
+            </div>
+
+            <div class="about__img">
+                <div class="about__img-overlay">
+                    <img src="{% static './assets/img/pexels-juan-mendez-11493468.jpg' %}" alt=""
+                         class="about__img-one">
+                </div>
+
+                <div class="about__img-overlay">
+                    <img src="{% static './assets/img/pexels-alexey-komissarov-9021569.jpg' %}" alt=""
+                         class="about__img-two">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!--==================== DISCOVER ====================-->
+    <section class="discover section" id="discover">
+        <h2 class="section__title">Here are the <br> Available Cars to Rent</h2>
+
+        <div class="discover__container container swiper-container">
+            <div class="swiper-wrapper">
+                {% for product in products %}
+                    {% if product.product_availability %}
+                        <div class="discover__card swiper-slide">
+                        <img src="{{ product.imageURL }}" alt="" class="discover__img">
+                        <div class="discover__data">
+                            <h2 class="discover__title">{{ product.product_name }}</h2>
+                            <a href="{% url 'product' product.id %}" class="button button--flex button--link home__info-button">
+                                More <i class="ri-arrow-right-line"></i>
+                            </a>
+                        </div>
+                    {% endif %}
+
+                </div>
+                {% endfor %}
+
+            </div>
+        </div>
+    </section>
+
+
+
+
+
+
+    <!--==================== SUBSCRIBE ====================-->
+    <section class="subscribe section">
+        <div class="subscribe__bg">
+            <div class="subscribe__container container">
+                <h2 class="section__title subscribe__title">Subscribe Our <br> Newsletter</h2>
+                <p class="subscribe__description">Subscribe to our newsletter and get a
+                    special 30% discount.
+                </p>
+
+                <form action="" class="subscribe__form">
+                    <input type="text" placeholder="Enter email" class="subscribe__input">
+
+                    <button class="button">
+                        Subscribe
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!--==================== SPONSORS ====================-->
+    <section class="sponsor section">
+        <div class="sponsor__container container grid">
+            <div class="sponsor__content">
+                <img src="{% static './assets/img/sponsors1.png' %}" alt="" class="sponsor__img">
+            </div>
+            <div class="sponsor__content">
+                <img src="{% static './assets/img/sponsors2.png' %}" alt="" class="sponsor__img">
+            </div>
+            <div class="sponsor__content">
+                <img src="{% static './assets/img/sponsors3.png' %}" alt="" class="sponsor__img">
+            </div>
+            <div class="sponsor__content">
+                <img src="{% static './assets/img/sponsors4.png' %}" alt="" class="sponsor__img">
+            </div>
+            <div class="sponsor__content">
+                <img src="{% static './assets/img/sponsors5.png' %}" alt="" class="sponsor__img">
+            </div>
+        </div>
+    </section>
+
+
+
+
+{% endblock %}
