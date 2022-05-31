@@ -84,7 +84,6 @@ class ProductListView(ListView):
     template_name = "customer_portal/product_list.html"
 
 
-
 # Single View Product
 class ProductPage(DetailView):
     model = Product
@@ -116,4 +115,3 @@ class CheckoutPage(CreateView):
         product = Product.objects.get(id=self.product_id)
         context['product'] = product
         return context
-
