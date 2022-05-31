@@ -26,6 +26,7 @@ class CustomLoginForm(AuthenticationForm):
 
     # hints when the user is entered invalid email and password
     error_messages = {
+
         **AuthenticationForm.error_messages,
         'invalid_login': (
             "Please enter the correct email and password"
@@ -76,10 +77,12 @@ class HomePageView(TemplateView):
 # Home page
 class ProductListView(ListView):
     model = Product
+
     context_object_name = 'products'  # overriding
 
     # name of the template on where to render
     template_name = "customer_portal/product_list.html"
+
 
 
 # Single View Product
@@ -113,3 +116,4 @@ class CheckoutPage(CreateView):
         product = Product.objects.get(id=self.product_id)
         context['product'] = product
         return context
+
