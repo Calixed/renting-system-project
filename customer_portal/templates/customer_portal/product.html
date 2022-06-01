@@ -1,43 +1,90 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <style>
-        img {
-            padding: 0;
-            display: block;
-            margin: 0 auto auto 0;
-        
-            height: 500px;
-            width: 500px;
-            max-height: 500px;
-            max-width: 500px;
-           }
-    </style>
-</head>
-<body>
-    <img src="{{product.imageURL}}" alt="" class>
-    <h1>{{product.product_name}}</h1>
-    <h2>{{product.product_price}}</h2>
-    <h3>Category: {{product.product_category}}</h3>
-    <hr>
-    <p>Color way: {{product.color}}</p>
-    <p>Description: {{product.description}}</p>
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+{% block head-css-extension %}
 
-    {% if request.user.is_authenticated %}
-        {% if product.product_availability %}
-        <p><small class="text-success">Available in Stock</small></p>
-        <p><a href="{% url 'checkout' product.id  %}">Proceed Transaction</a></p>
-        {% else %}
-        <p><small class="text-muted">Not Available</small></p>
-        {% endif %}
-    {% else %}
-        <p>In Order to Rent this product, you must logged in first!</p>
-    {% endif %}
-    <hr>
-    <p><a href="{% url 'shop' %}">Go Back</a></p>
-</body>
-</html>
+    <link rel="stylesheet" href="{% static './assets/css/product.css' %}">
+{% endblock %}
+{% block content %}
+    <div class="card-wrapper">
+        <div class="card">
+            <!-- card left -->
+            <div class="product-imgs">
+                <div class="img-display">
+                    <div class="img-showcase">
+                        <img src="{{ product.imageURL }}" alt="shoe image">
+
+                    </div>
+                </div>
+
+            </div>
+            <!-- card right -->
+            <div class="product-content">
+                <h2 class="product-title">{{ product.product_name }}</h2>
+                {% if product.product_availability %}
+                    <p class="product-link-primary">Available to Drive</p>
+                {% else %}
+                    <p><small class="product-link-danger">Not Available</small></p>
+                {% endif %}
+
+                <div class="product-price">
+                    <p class="new-price">New Price: <span>{{ product.product_price }}</span></p>
+                </div>
+
+                <div class="product-detail">
+                    <h2>about this Car: </h2>
+                    <p>{{ product.description }}</p>
+
+                    <ul>
+                        <li>Color: <span>{{ product.color }}</span></li>
+                        <li>Available: <span>{% if product.product_availability %}
+                            Available to Drive</p>
+                        {% else %}Not Available{% endif %}</span></li>
+                        <li>Category: <span>{{ product.product_category }}</span></li>
+                    </ul>
+                </div>
+
+                <div class="purchase-info">
+
+                    {% if request.user.is_authenticated %}
+                        <a class="btn" href="{% url 'checkout'  product.id %}">
+                            Rent This Car
+                        </a>
+                    {% else %}
+
+                        <a class="btn" href="{% url 'login'   %}">
+                            Login
+                        </a>
+                    {% endif %}
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+
+    <script src="script.js"></script>
+{% endblock %}
+
+
+{#    <img src="{{ product.imageURL }}" alt="" class>#}
+{#    <h1>{{ product.product_name }}</h1>#}
+{#    <h2>{{ product.product_price }}</h2>#}
+{#    <h3>Category: {{ product.product_category }}</h3>#}
+{#    <hr>#}
+{#    <p>Color way: {{ product.color }}</p>#}
+{#    <p>Description: {{ product.description }}</p>#}
+{##}
+{#    {% if request.user.is_authenticated %}#}
+{#        {% if product.product_availability %}#}
+{#            <p><small class="text-success">Available in Stock</small></p>#}
+{#            <p><a href="{% url 'checkout' product.id %}">Proceed Transaction</a></p>#}
+{#        {% else %}#}
+{#            <p><small class="text-muted">Not Available</small></p>#}
+{#        {% endif %}#}
+{#    {% else %}#}
+{#        <p>In Order to Rent this product, you must logged in first!</p>#}
+{#    {% endif %}#}
+{#    <hr>#}
+{#    <p><a href="{% url 'shop' %}">Go Back</a></p>#}

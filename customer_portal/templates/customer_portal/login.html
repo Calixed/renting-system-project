@@ -1,3 +1,4 @@
+{% extends 'base.html' %}
 {% load static %}
 {% load crispy_forms_filters %}
 {% block head-css-extension %}
@@ -10,7 +11,7 @@
      <link rel="stylesheet" href="{% static './assets/css/login.css' %}">
 {% endblock %}
 {% block content %}
-
+    {% include  'header.html' %}
     <section class="home" id="home">
         <img src="{% static './assets/img/pexels-revac-films&photography-109361.jpg' %}" alt="" class="home__img">
 
