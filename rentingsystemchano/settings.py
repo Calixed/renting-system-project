@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     # our apps
     'customer_portal.apps.CustomerPortalConfig',
     'crispy_forms',
+
     # default django app
     'django.contrib.admin',
     'django.contrib.auth',
@@ -43,6 +44,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+
 ]
 
 MIDDLEWARE = [
