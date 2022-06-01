@@ -1,24 +1,13 @@
-<<<<<<< Updated upstream
-from django import forms
-from django.contrib.auth import login
-from django.contrib.auth.forms import AuthenticationForm, UsernameField
-from django.shortcuts import redirect
-=======
 from msilib.schema import ListView
 from django import forms
 from django.contrib.auth import login
 from django.contrib.auth.models import User
 from django.shortcuts import redirect, render
->>>>>>> Stashed changes
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView
 from django.views.generic.detail import DetailView
 from django.contrib.auth.views import LoginView
-<<<<<<< Updated upstream
-from django.views.generic.edit import (CreateView, FormView, )
-=======
 from django.views.generic.edit import (CreateView, FormView,)
->>>>>>> Stashed changes
 from django.views.generic.list import ListView
 
 from .forms import RegisterForm, OrderForm , CustomLoginForm
