@@ -1,34 +1,17 @@
+from msilib.schema import ListView
 from django import forms
 from django.contrib.auth import login
-from django.contrib.auth.forms import AuthenticationForm, UsernameField
-from django.shortcuts import redirect
+from django.contrib.auth.models import User
+from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView
 from django.views.generic.detail import DetailView
 from django.contrib.auth.views import LoginView
-from django.views.generic.edit import (CreateView, FormView, )
+from django.views.generic.edit import (CreateView, FormView,)
 from django.views.generic.list import ListView
 
-from .forms import RegisterForm, OrderForm
+from .forms import RegisterForm, OrderForm , CustomLoginForm
 from .models import Product, Orders
-
-
-class CustomLoginForm(AuthenticationForm):
-    username = UsernameField(
-        label='Email',
-        widget=forms.TextInput(attrs={'autofocus': True})
-    )
-
-    # hints when the user is entered invalid email and password
-    error_messages = {
-
-        **AuthenticationForm.error_messages,
-        'invalid_login': (
-            "Please enter the correct email and password"
-            " Note that both fields may be case-sensitive."
-        ),
-    }
-
 
 # displaying the custom login page
 class CustomLoginView(LoginView):
@@ -38,7 +21,6 @@ class CustomLoginView(LoginView):
 
     def get_success_url(self):
         return reverse_lazy('home')  # return the user to the task page
-
 
 class RegisterPage(FormView):
     template_name = 'customer_portal/register.html'  # location of the template
@@ -58,7 +40,6 @@ class RegisterPage(FormView):
             return redirect('home')
         return super(RegisterPage, self).get(*args, **kwargs)
 
-
 class HomePageView(TemplateView):
     template_name = "customer_portal/home.html"
 
@@ -68,23 +49,18 @@ class HomePageView(TemplateView):
         context['products'] = products
         return context
 
-
 # Home page
 class ProductListView(ListView):
     model = Product
-
     context_object_name = 'products'  # overriding
-
     # name of the template on where to render
     template_name = "customer_portal/product_list.html"
-
 
 # Single View Product
 class ProductPage(DetailView):
     model = Product
     context_object_name = 'product'
     template_name = "customer_portal/product.html"
-
 
 # Ordering the Product
 # basically, had my template checkout it with the product.id 
