@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
-{% load humanize %}
+
 {% block head-css-extension %}
 
     <link rel="stylesheet" href="{% static './assets/css/product.css' %}">
@@ -52,7 +52,7 @@
                         </a>
                     {% else %}
 
-                        <a class="btn" href="{% url 'login'   %}">
+                        <a class="btn" href="{% url 'login' %}">
                             Login
                         </a>
                     {% endif %}
@@ -66,25 +66,3 @@
 
     <script src="script.js"></script>
 {% endblock %}
-
-
-{#    <img src="{{ product.imageURL }}" alt="" class>#}
-{#    <h1>{{ product.product_name }}</h1>#}
-{#    <h2>{{ product.product_price }}</h2>#}
-{#    <h3>Category: {{ product.product_category }}</h3>#}
-{#    <hr>#}
-{#    <p>Color way: {{ product.color }}</p>#}
-{#    <p>Description: {{ product.description }}</p>#}
-{##}
-{#    {% if request.user.is_authenticated %}#}
-{#        {% if product.product_availability %}#}
-{#            <p><small class="text-success">Available in Stock</small></p>#}
-{#            <p><a href="{% url 'checkout' product.id %}">Proceed Transaction</a></p>#}
-{#        {% else %}#}
-{#            <p><small class="text-muted">Not Available</small></p>#}
-{#        {% endif %}#}
-{#    {% else %}#}
-{#        <p>In Order to Rent this product, you must logged in first!</p>#}
-{#    {% endif %}#}
-{#    <hr>#}
-{#    <p><a href="{% url 'shop' %}">Go Back</a></p>#}

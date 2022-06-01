@@ -65,21 +65,3 @@
 
 
 {% endblock %}
-
-{#{% for product in products %}#}
-{#    <div class="card" style="width: 18rem;">#}
-{#        <img src="{{ product.imageURL }}" class="card-img-top" alt="...">#}
-{#        <div class="card-body">#}
-{#            <h5 class="card-title fw-bold">Car Model: {{ product.product_name }}</h5>#}
-{#            <p class="card-text fw-semibold">Price: {{ product.product_price }}</p>#}
-{% if product.product_availability %}
-    <p class="badge text-bg-primary">Available to Drive</p>
-{% else %}
-    <p class="badge text-bg-danger">Not Available</p>
-{% endif %}
-{#            <div class="row">#}
-{#                <a href="{% url 'product' product.id %}" class="btn btn-primary">Drive Now</a>#}
-{#            </div>#}
-{#        </div>#}
-{#    </div>#}
-{#{% endfor %}#}
