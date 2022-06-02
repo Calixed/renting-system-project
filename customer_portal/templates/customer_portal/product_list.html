@@ -6,8 +6,8 @@
 
         <div class="home__container container grid">
             <div class="home__data">
-                <span class="home__data-subtitle">Choose Your Own Car Now</span>
-                <h1 class="home__data-title">Rent the <br>  <b>Best Car </b>for you</h1>
+                <span class="home__data-subtitle">Choose Your Own Rental Product Now</span>
+                <h1 class="home__data-title">Rent the <br>  <b>Best Product </b>for You</h1>
                 <a href="#place" class="button">CHOOSE NOW</a>
 
             </div>
@@ -29,7 +29,7 @@
     </section>
 
     <section class="place section" id="place">
-        <h2 class="section__title">Choose Your Car</h2>
+        <h2 class="section__title">Choose Your Rental Product</h2>
 
         <div class="place__container container grid">
             <!--==================== PLACES CARD 1 ====================-->
@@ -40,7 +40,7 @@
 
                     <div class="place__content">
                         {% if product.product_availability %}
-                            <p class="badge text-bg-primary">Available to Drive</p>
+                            <p class="badge text-bg-primary">Available to Rent</p>
                         {% else %}
                             <p class="badge text-bg-danger">Not Available</p>
                         {% endif %}
@@ -54,7 +54,7 @@
 
                     <button class="button button--flex place__button">
                         <i class="ri-arrow-right-line nav__item"></i>
-                        <a class="nav__link" href="{% url 'product' product.id %}">Drive</a>
+                        <a class="nav__link" href="{% url 'product' product.id %}">Rent It</a>
                     </button>
                 </div>
             {% endfor %}

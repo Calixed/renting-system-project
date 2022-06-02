@@ -24,7 +24,7 @@
             <div class="product-content">
                 <h2 class="product-title">{{ product.product_name }}</h2>
                 {% if product.product_availability %}
-                    <p class="product-link-primary">Available to Drive</p>
+                    <p class="product-link-primary">Available to Rent</p>
                 {% else %}
                     <p><small class="product-link-danger">Not Available</small></p>
                 {% endif %}
@@ -40,7 +40,7 @@
                     <ul>
                         <li>Color: <span>{{ product.color }}</span></li>
                         <li>Available: <span>{% if product.product_availability %}
-                            Available to Drive</p>
+                            Available to Rent</p>
                         {% else %}Not Available{% endif %}</span></li>
                         <li>Category: <span>{{ product.product_category }}</span></li>
                     </ul>
