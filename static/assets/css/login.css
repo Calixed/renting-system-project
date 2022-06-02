@@ -33,7 +33,7 @@ ul{
     width: 100%;
     margin-bottom: 20px;
 }
-input{
+.textinput,.textInput, .emailinput{
     margin-bottom: 20px;
     width: 100%;
     padding: 5px;
