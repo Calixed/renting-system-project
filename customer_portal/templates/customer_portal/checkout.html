@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+{% load crispy_forms_filters %}
+{% block head-css-extension %}
+    <link rel="stylesheet" href="{% static './assets/css/product.css' %}">
+    <link rel="stylesheet" href="{% static './assets/css/checkout.css' %}">
+
+{% endblock %}
+{% block content %}
+    <div class="card-wrapper">
+        <div class="card">
+            <!-- card left -->
+            <div class="product-imgs">
+                <div class="img-display">
+                    <div class="img-showcase">
+                        <img src="{{ product.imageURL }}" alt="shoe image">
+
+                    </div>
+                </div>
+
+            </div>
+            <!-- card right -->
+            <div class="product-content">
+                <h2 class="product-title">{{ product.product_name }}</h2>
+                {% if product.product_availability %}
+                    <p class="product-link-primary">Available to Rent</p>
+                {% else %}
+                    <p><small class="product-link-danger">Not Available</small></p>
+                {% endif %}
+
+                <div class="product-price">
+                    <p class="new-price">New Price: <span>{{ product.product_price }}</span></p>
+                </div>
+
+                <div class="product-detail">
+                    <h2>about this Car: </h2>
+                    <p>{{ product.description }}</p>
+
+                    <ul>
+                        <li>Color: <span>{{ product.color }}</span></li>
+                        <li>Available: <span>{% if product.product_availability %}
+                            Available to Rent</p>
+                        {% else %}Not Available{% endif %}</span></li>
+                        <li>Category: <span>{{ product.product_category }}</span></li>
+                    </ul>
+                </div>
+
+
+                <form action="" method="POST">
+                    <div class="purchase-info">
+                        {% csrf_token %}
+                        <p>How many days will you Rent it?</p>
+                        {{ form.days | as_crispy_field }}
+                        <input class="btn" type="submit" value="Submit">
+                    </div>
+                </form>
+
+
+            </div>
+        </div>
+    </div>
+
+
+    <script src="script.js"></script>
+{% endblock %}
